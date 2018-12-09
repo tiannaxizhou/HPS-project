@@ -3,7 +3,7 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var boardX = 500;
 var boardY = 500;
-var cirles_per_player = 4;
+var circles_per_player = 4;
 
 var PreCircle_arr = [];
 var Player1_arr = [];    //record the circle info of the circles drawn by player1, structure as [[X, Y, R], ...]
@@ -39,9 +39,22 @@ function drawBoard() {
 function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "black";
-  ctx.fillText("Player1_area: " + parseInt(player1_area, 10), 510, 100);
-  ctx.fillText("Player2_area: " + parseInt(player2_area, 10), 510, 120);
+  ctx.fillText("Player1's area: " + parseInt(player1_area, 10), 510, 100);
+  ctx.fillText("Player2's area: " + parseInt(player2_area, 10), 510, 120);
 }
+
+function showScores(player1_area, player2_area){
+  $("#player1_score").html("" + parseInt(player1_area));
+  $("#player2_score").html("" + parseInt(player2_area));
+}
+
+function showWhichRound(round){
+  $("#whichround").html("<b>Round: " + round + "</b>");
+};
+
+function showWhoMoves(turn){
+  $("#whomoves").html("<b> Player " + turn + "</b> to move.");
+};
 
 function drawResult() {
   var result_info = "";
@@ -74,8 +87,8 @@ function preCircle(x, y, radius) {
 
 function drawCenter() {
   ctx.beginPath();
-  ctx.arc(X, Y, 3, 0, Math.PI*2);
-  ctx.fillStyle = "red";
+  ctx.arc(X, Y, 1, 0, Math.PI*2);
+  ctx.fillStyle = "black";
   ctx.fill();
   ctx.closePath();
 }
@@ -83,7 +96,7 @@ function drawCenter() {
 function drawCircle1() {   //player1
       ctx.beginPath();
       ctx.arc(X, Y, R, 0, Math.PI*2);
-      ctx.fillStyle = "yellow";
+      ctx.fillStyle = "red";
       ctx.fill();
       ctx.closePath();
     }
@@ -101,8 +114,9 @@ canvas.addEventListener('click', on_canvas_click, false);
 var centerClick = false;
 var isPlayer1 = false;
 var circle = 1;   //track the index of the current circle num , 1-indexed based
+
 function on_canvas_click(ev) {
-  if(circle == 2 * cirles_per_player + 1)
+  if(circle == 2 * circles_per_player + 1)
   {
     //game finished.
     alert("Game finished!\n" + result_info);
@@ -110,8 +124,8 @@ function on_canvas_click(ev) {
   }
   centerClick = !centerClick;
   if(centerClick) {
-    X = ev.clientX - canvas.offsetLeft;
-    Y = ev.clientY - canvas.offsetTop;
+    X = ev.clientX - canvas.getBoundingClientRect().left;
+    Y = ev.clientY - canvas.getBoundingClientRect().top;
     //check if the chosen center is valid position
     if( X > boardX  )
     {
@@ -153,8 +167,8 @@ function on_canvas_click(ev) {
     }
     drawCenter();
   } else {
-    pointX = ev.clientX - canvas.offsetLeft;
-    pointY = ev.clientY - canvas.offsetTop;
+    pointX = ev.clientX - canvas.getBoundingClientRect().left;
+    pointY = ev.clientY - canvas.getBoundingClientRect().top;
 
     // check if pointX and pointY are at legal area
     if( pointX > boardX )
@@ -250,7 +264,6 @@ function on_canvas_click(ev) {
       player1_area = player1_area + Math.PI * Math.pow(R, 2)
       Player1_arr.push(circle_info);
       drawCircle1();
-
     } else {
       player2_area = player2_area + Math.PI * Math.pow(R, 2)
       Player2_arr.push(circle_info);
@@ -258,8 +271,9 @@ function on_canvas_click(ev) {
     }
     ctx.clearRect(boardX, 0, canvas.width - boardX, canvas.height);
     drawScore();
+    showScores(player1_area, player2_area);
     circle = circle + 1;
-    if(circle == 2 * cirles_per_player + 1)
+    if(circle == 2 * circles_per_player + 1)
     {
       // game finished
       drawResult();

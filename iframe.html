@@ -4,7 +4,7 @@
 <title> Circle Drawing </title>
 <style>
   * { padding: 0; margin: 0; }
-  canvas { background: #eee; display: block; margin: 0 auto; }
+  canvas { background: #eee; display: block;}
 </style>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -20,21 +20,23 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-
+<!-- TODO: add start a new game button
+      initial circle position
+      add settings (number of cicles) -->
   <div class="container-fluid">
     <div class="row">
       <h1 class="page-header game-title"> Circle Drawing Game </h1>
       <div class="col-md-3" style="margin-top:50px;">
-      	<div class="alert alert-info" role="alert" id="msgbox">
+        <!-- TODO: update round -->
+      	<div class="alert alert-info" role="alert" id="whichround">
+      	  <b >Round: 1</b>
+      	</div>
+
+        <!-- TODO: update turns -->
+      	<div class="alert alert-info" role="alert" id="whomoves">
       	  <b>Player 1</b> to move.
       	</div>
 
-        <!-- TODO: update round -->
-      	<div class="well">
-      	  <b >Round: <span id="round"> 0 </span> </b>
-      	</div>
-
-        <!-- TODO: score update -->
       	<div class="well" role="alert" id="msgbox">
       	  <b>Player 1's score: <span id="player1_score"> 0</span></b>
       	</div>
@@ -43,45 +45,28 @@
       	  <b>Player 2's score: <span id="player2_score"> 0</span></b>
       	</div>
 
-        <!-- TODO: Move history -->
-        <div class="alert alert-success">
-            <b >Move History:</b>
-            <ul id="moveHistory" class="list-group"
-                style="max-height:200px; overflow-y:scroll; padding-top: 10px">
-            </ul>
-        </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" style="position:relative">
         <canvas id = "myCanvas" width="700" height="500"></canvas>
       </div>
 
-      <div class="col-md-3 " style="margin-top:10px; padding-right:10px">
+      <div class="col-md-3 " style="padding-right:10px">
       	<div class="panel panel-default">
       	  <div class="panel-body  alert-info">
               <h3>Instructions</h3>
               <ul class="list-group">
                 <li class="list-group-item">
-                  Players take turns to place some number of circles of different radius on the board. Your mission is to draw circles in the remain blank space.
+                  Players take turns to place some number of circles of different radius on the board.
                 </li>
                 <li class="list-group-item">
-                  Round 1:
-                  PlayerA starts to draw one circle with control of the center and radius of the circle.
+                  For each turn, a player draws one circle with control of the center and radius of the circle.
                   After playerA properly chooses a center and a point supposedly on the circle, a new circle will be drawn on the canvas.
-                  PlayerB then starts to repeat what playerA did in the remain blank space with one new circle just drawn.
+                  Then the other player then starts to draw a new circle in the remain blank space with opponent's circle just drawn.
                 </li>
                 <li class="list-group-item">
-                  Round 2:
-                  PlayerB first starts to draw a circle.
-                  Then PlayerA gets to draw.
+                  Players take turns to be the first one to draw in each round.
                 </li>
-                <li class="list-group-item">
-                  Repeat turns.
-                 </li>
-              </ul>
-
-              <h3>To Play</h3>
-              <ul class="list-group">
                 <li class="list-group-item">
                   If the new drawn circle somehow steps on the area of other previous circles or is beyond the border of the canvas, then the circle will be automatically narrowed down to proper radius to fit in a blank space of the canvas.
                 </li>
