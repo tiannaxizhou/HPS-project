@@ -23,6 +23,8 @@ Red small circles are the chosen center of the incoming circle.
 //create boundary of the board
 drawBoard();
 drawScore();
+showWhichRound(1);
+showWhoMoves("Player1");
 //draw pre-drawn circles
 preCircle(240, 160, 20);
 preCircle(100, 200, 40);
@@ -277,6 +279,15 @@ function on_canvas_click(ev) {
     {
       // game finished
       drawResult();
+    }
+    else if(circle%4 == 1 || circle%4 == 0)
+    {
+      showWhichRound(parseInt((circle + 1) / 2));
+      showWhoMoves("Player1");
+    }
+    else {
+      showWhichRound(parseInt((circle + 1) / 2));
+      showWhoMoves("Player2");
     }
   }
 }
