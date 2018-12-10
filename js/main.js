@@ -4,6 +4,9 @@ var ctx = canvas.getContext("2d");
 var boardX = 500;
 var boardY = 500;
 var circles_per_player = 4;
+var preCircles_max = 10;
+var preCircles_min = 3;
+var preCircles_R_min = 30;
 
 var PreCircle_arr = [];
 var Player1_arr = [];    //record the circle info of the circles drawn by player1, structure as [[X, Y, R], ...]
@@ -26,11 +29,58 @@ Red small circles are the chosen center of the incoming circle.
 drawBoard();
 //drawScore();
 showWhichRound(1);
-showWhoMoves("Player1");
+showWhoMoves("1");
 //draw pre-drawn circles
-preCircle(240, 160, 20);
-preCircle(100, 200, 40);
-preCircle(50, 50, 10);
+randomPreCircles();
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function randomPreCircles() {
+  var random_num = getRndInteger(preCircles_min, preCircles_max);
+  for(var i = 0; i < random_num; i++)
+  {
+    while(true) {
+      var tempX;
+      var tempY;
+      var validXY;
+      var rangeR1 = boardX;
+      while(true){
+        validXY = true;
+        tempX = getRndInteger(0, boardX);
+        tempY = getRndInteger(0, boardY);
+        // check (tempX, tempY) is not on other circle's territory
+        for(var i = 0; i < PreCircle_arr.length; i++)
+        {
+          var dis = Math.sqrt(Math.pow((PreCircle_arr[i][0] - tempX), 2) + Math.pow((PreCircle_arr[i][1] - tempY), 2))
+          if (dis < PreCircle_arr[i][2] + 1)
+          {
+            validXY = false;
+            break;
+          } else {
+            if(rangeR1 > dis - PreCircle_arr[i][2])
+            {
+              rangeR1 = dis - PreCircle_arr[i][2]
+            }
+          }
+        }
+        if(validXY)
+        {
+          break;
+        }
+      }
+      var rangeR2 = Math.min(boardX - tempX, tempX, boardY - tempY, tempY, rangeR1);
+      if (rangeR2 > preCircles_R_min)
+      {
+        var tempR = getRndInteger(preCircles_R_min, rangeR2);
+        preCircle(tempX, tempY, tempR);
+        break;
+      }
+    }
+  }
+}
+
 
 function drawBoard() {
   ctx.beginPath();
@@ -288,11 +338,11 @@ function on_canvas_click(ev) {
     else if(circle%4 == 1 || circle%4 == 0)
     {
       showWhichRound(parseInt((circle + 1) / 2));
-      showWhoMoves("Player1");
+      showWhoMoves("1");
     }
     else {
       showWhichRound(parseInt((circle + 1) / 2));
-      showWhoMoves("Player2");
+      showWhoMoves("2");
     }
   }
 }
