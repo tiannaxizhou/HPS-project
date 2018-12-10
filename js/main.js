@@ -47,12 +47,12 @@ function startGame() {
   pointX = 0;
   pointY = 0;
   //draw pre-drawn circles
-  permitted_rounds = document.getElementById("num_circles").value;
+  permitted_rounds = document.getElementById("round").value;
   randomPreCircles();
   showWhichRound(1);
   showWhoMoves(1);
   showScores(0, 0);
-  showResult("new game", true);
+  showResult("New game", true);
 }
 
 function getRndInteger(min, max) {
@@ -152,7 +152,7 @@ function drawResult() {
 function preCircle(x, y, radius) {
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI*2, false);
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "green";
       ctx.fill();
       ctx.closePath();
       var pos_arr = [x, y, radius];
