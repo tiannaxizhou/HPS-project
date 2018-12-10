@@ -2,6 +2,9 @@ var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 var boardX = 750;
 var boardY = 500;
+var preCircles_min = 3;
+var preCircles_max = 10;
+var permitted_rounds = 5;
 
 var PreCircle_arr = [];
 var Player1_arr = [];    //record the circle info of the circles drawn by player1, structure as [[X, Y, R], ...]
@@ -44,7 +47,7 @@ function startGame() {
   pointX = 0;
   pointY = 0;
   //draw pre-drawn circles
-  random_num = document.getElementById("num_circles").value;
+  permitted_rounds = document.getElementById("num_circles").value;
   randomPreCircles();
   showWhichRound(1);
   showWhoMoves(1);
@@ -57,6 +60,7 @@ function getRndInteger(min, max) {
 }
 
 function randomPreCircles() {
+  var random_num = getRndInteger(preCircles_min, preCircles_max)
   for(var i = 0; i < random_num; i++)
   {
     while(true) {
