@@ -18,11 +18,7 @@ var isPlayer1 = false;
 var circle = 1;   //track the index of the current circle num , 1-indexed based
 
 /*
-<<<<<<< HEAD
-Black circles are pre-drawn circles
-=======
 Green circles are pre-drawn circles
->>>>>>> 77d3ba180e3053fe0d73b984381ec8207b958dc3
 Red circles are the circles that belong to Player1
 Blue circles are the circles that belong to Player2
 The chosen center of the incoming circle will be shown on the canvas as a black point
@@ -346,11 +342,11 @@ function on_canvas_click(ev) {
     }
     else if(circle%4 == 1 || circle%4 == 0)
     {
-      showWhichRound(parseInt((circle + 1) / 2));
+      showWhichRound(parseInt((circle + 1) / 4));
       showWhoMoves("1");
     }
     else {
-      showWhichRound(parseInt((circle + 1) / 2));
+      showWhichRound(parseInt((circle + 1) / 4));
       showWhoMoves("2");
     }
   }
