@@ -19,9 +19,9 @@ var circle = 1;   //track the index of the current circle num , 1-indexed based
 
 /*
 Green circles are pre-drawn circles
-Yellow circles are the circles that belong to Player1
+Red circles are the circles that belong to Player1
 Blue circles are the circles that belong to Player2
-Red small circles are the chosen center of the incoming circle.
+The chosen center of the incoming circle will be shown on the canvas as a black point
 */
 
 //create boundary of the board
@@ -29,10 +29,6 @@ drawBoard();
 
 function startGame() {
   ctx.clearRect(0, 0, boardX, boardY);
-  //draw pre-drawn circles
-  random_num = document.getElementById("num_circles").value;
-  randomPreCircles();
-
   canvas.addEventListener('click', on_canvas_click, false);
   PreCircle_arr = [];
   Player1_arr = [];
@@ -47,6 +43,9 @@ function startGame() {
   R = 0;
   pointX = 0;
   pointY = 0;
+  //draw pre-drawn circles
+  random_num = document.getElementById("num_circles").value;
+  randomPreCircles();
   showWhichRound(1);
   showWhoMoves(1);
   showScores(0, 0);
@@ -158,7 +157,7 @@ function preCircle(x, y, radius) {
 
 function drawCenter() {
   ctx.beginPath();
-  ctx.arc(X, Y, 1, 0, Math.PI*2);
+  ctx.arc(X, Y, 2, 0, Math.PI*2);
   ctx.fillStyle = "black";
   ctx.fill();
   ctx.closePath();
