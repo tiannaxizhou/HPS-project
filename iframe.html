@@ -66,18 +66,20 @@
               <h3>Instructions</h3>
               <ul class="list-group">
                 <li class="list-group-item">
-                  Players take turns to place some number of circles of different radius on the board.
+                  Players take turns to place some number of circles of different radius on the canvas.
                 </li>
                 <li class="list-group-item">
-                  For each turn, a player draws one circle with control of the center and radius of the circle.
-                  After playerA properly chooses a center and a point supposedly on the circle, a new circle will be drawn on the canvas.
-                  Then the other player then starts to draw a new circle in the remain blank space with opponent's circle just drawn.
+                  4 circles being drawn is treated as one round.
                 </li>
                 <li class="list-group-item">
-                  Players take turns to be the first one to draw in each round.
+                  For each round, player1 draws one circle with control of the center and radius of the circle.
+                  After player1 properly chooses a center and a point supposedly on the circle, a new circle will be drawn on the canvas.
+                  Then player2 starts to draw a new circle in the remain blank space with the opponent's circle just drawn. And player2
+                  continues to draw a third circle of the current round, following by player1 draws the fourth circle.
                 </li>
                 <li class="list-group-item">
-                  If the new drawn circle somehow steps on the area of other previous circles or is beyond the border of the canvas, then the circle will be automatically narrowed down to proper radius to fit in a blank space of the canvas.
+                  If the new drawn circle somehow steps on the area of other previous circles or is beyond the border of the canvas,
+                  then the circle will be automatically narrowed down to proper radius to fit in a blank space of the canvas.
                 </li>
               </ul>
             	<h6 class="text-right">-by Wildcats </h6>

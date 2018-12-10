@@ -1,6 +1,6 @@
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var boardX = 750;
+var boardX = 500;
 var boardY = 500;
 var preCircles_min = 3;
 var preCircles_max = 10;
@@ -48,6 +48,7 @@ function startGame() {
   pointY = 0;
   //draw pre-drawn circles
   permitted_rounds = document.getElementById("round").value;
+  drawBoard();
   randomPreCircles();
   showWhichRound(1);
   showWhoMoves(1);
@@ -346,11 +347,11 @@ function on_canvas_click(ev) {
     }
     else if(circle%4 == 1 || circle%4 == 0)
     {
-      showWhichRound(parseInt((circle + 1) / 4));
+      showWhichRound(parseInt((circle + 3) / 4));
       showWhoMoves("1");
     }
     else {
-      showWhichRound(parseInt((circle + 1) / 4));
+      showWhichRound(parseInt((circle + 3) / 4));
       showWhoMoves("2");
     }
   }
