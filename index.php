@@ -57,7 +57,7 @@
 	    * arg2: if your score is sortable, pass 1 if higher score is better, 0
 	    *       if smaller score is better. Otherwise no need to pass variable
 	    */
-	    getScore("Circle Drawing", 1);
+	    getScore("Smart Circles", 1);
 	?>
 	</div>
         <h3>Play It!</h3>
@@ -67,7 +67,7 @@
     <?php include $base."footer.php"; ?>
 </div>
 <script type="text/javascript">
-    newWindowBtn(1000,1000,"games/CircleDrawing/iframe.html");
+    newWindowBtn(1000,1000,"games/SmartCircles/iframe.html");
 </script>
 </body>
 </html>
