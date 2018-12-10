@@ -40,11 +40,11 @@ function randomPreCircles() {
       var tempX;
       var tempY;
       var validXY;
-      var rangeR1 = 500;
+      var rangeR1 = boardX;
       while(true){
         validXY = true;
-        tempX = getRndInteger(1, 499);
-        tempY = getRndInteger(1, 499);
+        tempX = getRndInteger(0, boardX);
+        tempY = getRndInteger(0, boardY);
         // check (tempX, tempY) is not on other circle's territory
         for(var i = 0; i < PreCircle_arr.length; i++)
         {
