@@ -24,11 +24,58 @@ Red small circles are the chosen center of the incoming circle.
 drawBoard();
 drawScore();
 showWhichRound(1);
-showWhoMoves("Player1");
+showWhoMoves("1");
 //draw pre-drawn circles
-preCircle(240, 160, 20);
-preCircle(100, 200, 40);
-preCircle(50, 50, 10);
+randomPreCircles();
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function randomPreCircles() {
+  var random_num = getRndInteger(3, 10);
+  for(var i = 0; i < random_num; i++)
+  {
+    while(true) {
+      var tempX;
+      var tempY;
+      var validXY;
+      var rangeR1 = 500;
+      while(true){
+        validXY = true;
+        tempX = getRndInteger(1, 499);
+        tempY = getRndInteger(1, 499);
+        // check (tempX, tempY) is not on other circle's territory
+        for(var i = 0; i < PreCircle_arr.length; i++)
+        {
+          var dis = Math.sqrt(Math.pow((PreCircle_arr[i][0] - tempX), 2) + Math.pow((PreCircle_arr[i][1] - tempY), 2))
+          if (dis < PreCircle_arr[i][2] + 1)
+          {
+            validXY = false;
+            break;
+          } else {
+            if(rangeR1 > dis - PreCircle_arr[i][2])
+            {
+              rangeR1 = dis - PreCircle_arr[i][2]
+            }
+          }
+        }
+        if(validXY)
+        {
+          break;
+        }
+      }
+      var rangeR2 = Math.min(500 - tempX, tempX, 500 - tempY, tempY, rangeR1);
+      if (rangeR2 > 30)
+      {
+        var tempR = getRndInteger(30, rangeR2);
+        preCircle(tempX, tempY, tempR);
+        break;
+      }
+    }
+  }
+}
+
 
 function drawBoard() {
   ctx.beginPath();
@@ -283,11 +330,11 @@ function on_canvas_click(ev) {
     else if(circle%4 == 1 || circle%4 == 0)
     {
       showWhichRound(parseInt((circle + 1) / 2));
-      showWhoMoves("Player1");
+      showWhoMoves("1");
     }
     else {
       showWhichRound(parseInt((circle + 1) / 2));
-      showWhoMoves("Player2");
+      showWhoMoves("2");
     }
   }
 }
