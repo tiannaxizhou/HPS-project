@@ -3,7 +3,7 @@
 <head>
 <title> Circle Drawing </title>
 <style>
-  * { padding: 0; margin: 0; }
+  * { padding: 0; margin: 0 auto; }
   canvas { background: #eee; display: block;}
 </style>
 
@@ -20,35 +20,44 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-<!-- TODO: add start a new game button
-      initial circle position
-      add settings (number of cicles) -->
   <div class="container-fluid">
     <div class="row">
       <h1 class="page-header game-title"> Circle Drawing Game </h1>
-      <div class="col-md-3" style="margin-top:50px;">
-        <!-- TODO: update round -->
+      <div class="col-md-3" style="margin-top:10px;">
+
+        <div class="info-form">
+           <label for="number of circles"> Number of fixed circles </label>
+           <input type="text" class="form-control info-input" id="num_circles" value="5">
+        </div>
+
+        <div class="alert btn-primary" style="" onclick = "startGame()">
+            <b style="margin-top:5px">Start New Game</b>
+        </div>
+
       	<div class="alert alert-info" role="alert" id="whichround">
       	  <b >Round: 1</b>
       	</div>
 
-        <!-- TODO: update turns -->
       	<div class="alert alert-info" role="alert" id="whomoves">
       	  <b>Player 1</b> to move.
       	</div>
 
       	<div class="well" role="alert" id="msgbox">
-      	  <b>Player 1's score: <span id="player1_score"> 0</span></b>
+      	  <b>Player 1's area: <span id="player1_score"> 0</span></b>
       	</div>
 
       	<div class="well" role="alert" id="msgbox">
-      	  <b>Player 2's score: <span id="player2_score"> 0</span></b>
+      	  <b>Player 2's area: <span id="player2_score"> 0</span></b>
       	</div>
+
+        <div class="alert alert-danger" role="alert" id="alertbox" style="opacity:0.0" >
+    	    Game ends in tie!
+    	  </div>
 
       </div>
 
-      <div class="col-md-6" style="position:relative">
-        <canvas id = "myCanvas" width="700" height="500"></canvas>
+      <div class="col-md-6" style="position:relative; margin-top:10px;" >
+        <canvas id = "myCanvas" width="750" height="500"></canvas>
       </div>
 
       <div class="col-md-3 " style="padding-right:10px">
