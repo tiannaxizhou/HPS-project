@@ -1,12 +1,7 @@
-
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var boardX = 500;
+var boardX = 750;
 var boardY = 500;
-var circles_per_player = 4;
-var preCircles_max = 10;
-var preCircles_min = 3;
-var preCircles_R_min = 30;
 
 var PreCircle_arr = [];
 var Player1_arr = [];    //record the circle info of the circles drawn by player1, structure as [[X, Y, R], ...]
@@ -15,8 +10,12 @@ var player1_area = 0;  //record the territory that is occupied by the circles of
 var player2_area = 0;  //record the territory that is occupied by the circles of player2
 var X, Y, R;    //X, Y for the center position, R for the radius of circle
 var pointX, pointY;   //for the chosen point that is supposed to be on the circle of the previous chosen center.
-var num_pre;
-
+var circles_per_player = 4;
+var preCircles_R_min = 30;
+var random_num = 5;
+var centerClick = false;
+var isPlayer1 = false;
+var circle = 1;   //track the index of the current circle num , 1-indexed based
 
 /*
 Green circles are pre-drawn circles
@@ -27,18 +26,38 @@ Red small circles are the chosen center of the incoming circle.
 
 //create boundary of the board
 drawBoard();
-//drawScore();
-showWhichRound(1);
-showWhoMoves("1");
-//draw pre-drawn circles
-randomPreCircles();
+
+function startGame() {
+  ctx.clearRect(0, 0, boardX, boardY);
+  //draw pre-drawn circles
+  random_num = document.getElementById("num_circles").value;
+  randomPreCircles();
+
+  canvas.addEventListener('click', on_canvas_click, false);
+  PreCircle_arr = [];
+  Player1_arr = [];
+  Player2_arr = [];
+  player1_area = 0;
+  player2_area = 0;
+  centerClick = false;
+  isPlayer1 = false;
+  circle = 1;
+  X = 0;
+  Y = 0;
+  R = 0;
+  pointX = 0;
+  pointY = 0;
+  showWhichRound(1);
+  showWhoMoves(1);
+  showScores(0, 0);
+  showResult("new game", true);
+}
 
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
 function randomPreCircles() {
-  var random_num = getRndInteger(preCircles_min, preCircles_max);
   for(var i = 0; i < random_num; i++)
   {
     while(true) {
@@ -90,13 +109,6 @@ function drawBoard() {
   ctx.closePath();
 }
 
-function drawScore() {
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText("Player1's area: " + parseInt(player1_area, 10), 510, 100);
-  ctx.fillText("Player2's area: " + parseInt(player2_area, 10), 510, 120);
-}
-
 function showScores(player1_area, player2_area){
   $("#player1_score").html("" + parseInt(player1_area));
   $("#player2_score").html("" + parseInt(player2_area));
@@ -114,7 +126,8 @@ function showResult(msg, hide) {
   $("#alertbox").text(msg);
   if (hide == undefined || hide == true) {
     $("#alertbox").animate({opacity: 1.0}, 300, waitAndHideAlert);
-  } else if (hide == false) {
+  }
+  else if (hide == false) {
     $("#alertbox").animate({opacity: 1.0});
   }
 }
@@ -127,7 +140,8 @@ function drawResult() {
   else if (player1_area < player2_area)
   {
     showResult("Player 2 wins the game!", false);
-  } else {
+  }
+  else {
     showResult("The game ends in a tie!", false);
   }
 }
@@ -165,12 +179,6 @@ function drawCircle2() {
       ctx.fill();
       ctx.closePath();
     }
-
-canvas.addEventListener('click', on_canvas_click, false);
-
-var centerClick = false;
-var isPlayer1 = false;
-var circle = 1;   //track the index of the current circle num , 1-indexed based
 
 function on_canvas_click(ev) {
   if(circle == 2 * circles_per_player + 1)
@@ -326,8 +334,6 @@ function on_canvas_click(ev) {
       Player2_arr.push(circle_info);
       drawCircle2();
     }
-    ctx.clearRect(boardX, 0, canvas.width - boardX, canvas.height);
-    //drawScore();
     showScores(player1_area, player2_area);
     circle = circle + 1;
     if(circle == 2 * circles_per_player + 1)

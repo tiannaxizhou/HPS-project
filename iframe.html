@@ -3,7 +3,7 @@
 <head>
 <title> Circle Drawing </title>
 <style>
-  * { padding: 0; margin: 0; }
+  * { padding: 0; margin: 0 auto; }
   canvas { background: #eee; display: block;}
 </style>
 
@@ -25,7 +25,14 @@
       <h1 class="page-header game-title"> Circle Drawing Game </h1>
       <div class="col-md-3" style="margin-top:10px;">
 
-        <button class="btn btn-primary" type="button" onclick = "window.location.reload()">New Game</button>
+        <div class="info-form">
+           <label for="number of circles"> Number of fixed circles </label>
+           <input type="text" class="form-control info-input" id="num_circles" value="5">
+        </div>
+
+        <div class="alert btn-primary" style="" onclick = "startGame()">
+            <b style="margin-top:5px">Start New Game</b>
+        </div>
 
       	<div class="alert alert-info" role="alert" id="whichround">
       	  <b >Round: 1</b>
@@ -36,11 +43,11 @@
       	</div>
 
       	<div class="well" role="alert" id="msgbox">
-      	  <b>Player 1's score: <span id="player1_score"> 0</span></b>
+      	  <b>Player 1's area: <span id="player1_score"> 0</span></b>
       	</div>
 
       	<div class="well" role="alert" id="msgbox">
-      	  <b>Player 2's score: <span id="player2_score"> 0</span></b>
+      	  <b>Player 2's area: <span id="player2_score"> 0</span></b>
       	</div>
 
         <div class="alert alert-danger" role="alert" id="alertbox" style="opacity:0.0" >
@@ -50,7 +57,7 @@
       </div>
 
       <div class="col-md-6" style="position:relative; margin-top:10px;" >
-        <canvas id = "myCanvas" width="500" height="500"></canvas>
+        <canvas id = "myCanvas" width="750" height="500"></canvas>
       </div>
 
       <div class="col-md-3 " style="padding-right:10px">
