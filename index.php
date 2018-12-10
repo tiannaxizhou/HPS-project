@@ -25,7 +25,7 @@
         <?php include $base."leftMenuGame.php"; ?>
     </nav>
     <article>
-        <h1 id="gameName">Smart Circles</h1>
+        <h1 id="gameName">Staking Claims</h1>
         <h3 id="groupName">Team Wildcats</h3>
         <h3>Instruction:</h3>
         <div id="gameDesc" class="jumbotron">
@@ -69,7 +69,7 @@
     <?php include $base."footer.php"; ?>
 </div>
 <script type="text/javascript">
-    newWindowBtn(1000,1000,"games/SmartCircles/iframe.html");
+    newWindowBtn(1000,1000,"games/StakingClaims/iframe.html");
 </script>
 </body>
 </html>
