@@ -20,19 +20,17 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-<!-- TODO: add start a new game button
-      initial circle position
-      add settings (number of cicles) -->
   <div class="container-fluid">
     <div class="row">
       <h1 class="page-header game-title"> Circle Drawing Game </h1>
-      <div class="col-md-3" style="margin-top:50px;">
-        <!-- TODO: update round -->
+      <div class="col-md-3" style="margin-top:10px;">
+
+        <button class="btn btn-primary" type="button" onclick = "window.location.reload()">New Game</button>
+
       	<div class="alert alert-info" role="alert" id="whichround">
       	  <b >Round: 1</b>
       	</div>
 
-        <!-- TODO: update turns -->
       	<div class="alert alert-info" role="alert" id="whomoves">
       	  <b>Player 1</b> to move.
       	</div>
@@ -45,10 +43,14 @@
       	  <b>Player 2's score: <span id="player2_score"> 0</span></b>
       	</div>
 
+        <div class="alert alert-danger" role="alert" id="alertbox" style="opacity:0.0" >
+    	    Game ends in tie!
+    	  </div>
+
       </div>
 
-      <div class="col-md-6" style="position:relative">
-        <canvas id = "myCanvas" width="700" height="500"></canvas>
+      <div class="col-md-6" style="position:relative; margin-top:10px;" >
+        <canvas id = "myCanvas" width="500" height="500"></canvas>
       </div>
 
       <div class="col-md-3 " style="padding-right:10px">

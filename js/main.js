@@ -12,6 +12,8 @@ var player1_area = 0;  //record the territory that is occupied by the circles of
 var player2_area = 0;  //record the territory that is occupied by the circles of player2
 var X, Y, R;    //X, Y for the center position, R for the radius of circle
 var pointX, pointY;   //for the chosen point that is supposed to be on the circle of the previous chosen center.
+var num_pre;
+
 
 /*
 Green circles are pre-drawn circles
@@ -22,7 +24,7 @@ Red small circles are the chosen center of the incoming circle.
 
 //create boundary of the board
 drawBoard();
-drawScore();
+//drawScore();
 showWhichRound(1);
 showWhoMoves("Player1");
 //draw pre-drawn circles
@@ -50,31 +52,34 @@ function showScores(player1_area, player2_area){
   $("#player2_score").html("" + parseInt(player2_area));
 }
 
-function showWhichRound(round){
+function showWhichRound(round) {
   $("#whichround").html("<b>Round: " + round + "</b>");
 };
 
-function showWhoMoves(turn){
+function showWhoMoves(turn) {
   $("#whomoves").html("<b> Player " + turn + "</b> to move.");
 };
 
+function showResult(msg, hide) {
+  $("#alertbox").text(msg);
+  if (hide == undefined || hide == true) {
+    $("#alertbox").animate({opacity: 1.0}, 300, waitAndHideAlert);
+  } else if (hide == false) {
+    $("#alertbox").animate({opacity: 1.0});
+  }
+}
+
 function drawResult() {
-  var result_info = "";
   if(player1_area > player2_area)
   {
-    result_info = "Player 1 wins the game!";
+    showResult("Player 1 wins the game!", false);
   }
   else if (player1_area < player2_area)
   {
-    result_info = "Player 2 wins the game!";
+    showResult("Player 2 wins the game!", false);
   } else {
-    result_info = "The game ends in a tie!";
+    showResult("The game ends in a tie!", false);
   }
-  ctx.font = "16px Arial";
-  ctx.fillStyle = "black";
-  ctx.fillText(result_info, 510, 150);
-  // alert("Game finished!\n" + result_info);
-  // document.location.reload();
 }
 
 function preCircle(x, y, radius) {
@@ -272,7 +277,7 @@ function on_canvas_click(ev) {
       drawCircle2();
     }
     ctx.clearRect(boardX, 0, canvas.width - boardX, canvas.height);
-    drawScore();
+    //drawScore();
     showScores(player1_area, player2_area);
     circle = circle + 1;
     if(circle == 2 * circles_per_player + 1)
